@@ -1,0 +1,644 @@
+ INCLUDE('Proper.equ'),ONCE
+
+!--------Folder Types---
+FOLDER:POPLINKS			EQUATE('PopLinkFolder')
+FOLDER:PRODUCT			EQUATE('ProductFolder')
+FOLDER:CONSIGNMENT		EQUATE('CnsFolder')
+FOLDER:STOCK_ADJUST		EQUATE('StockAdjustFolder')
+FOLDER:BASIL			EQUATE('BasilFolder')
+FOLDER:SAGE			EQUATE('SageFolder')
+FOLDER:PMCPURCHASE		EQUATE('PMCPurchase')
+FOLDER:MASSPRODUCTUPDATE	EQUATE('MassUpdateFolder')
+FOLDER:RETURNSDAYEND		EQUATE('ReturnsDayEndFolder')
+FOLDER:DIGITALREPORTS		EQUATE('DigitalReportsFolder')
+FOLDER:BINCHECKER		EQUATE('BinCheckerFolder')
+FOLDER:CSVS			EQUATE('CSVsFolder')
+FOLDER:DAYEND			EQUATE('DayEnd')
+
+!Discounting
+
+TDiscountGroup             GROUP,TYPE
+ProductId                     LONG				!Required
+CustomerId                    LONG				!Required
+CatNo			      STRING(21)
+AccountCode		      STRING(10)
+DefaultPrice                  DECIMAL(7,2)			!Standard Price for this customer
+ItemPrice                     DECIMAL(9,4)			!Current Item Price	
+CurrentDiscount		      DECIMAL(5,2)
+CostPrice                     DECIMAL(7,2)			
+FileDiscount                  DECIMAL(5,2)
+QtyOrdered		      LONG
+PPProduct		      BYTE
+ProperPartner                 BYTE
+LineReference		      STRING(30)
+SupplierId		      STRING(10)			!Proper Supplier Account Code
+AnalysisCode		      STRING(20)			        !Label
+ReleaseDate		      LONG
+Format			      STRING(4)
+                            END
+
+
+!Despatch Item Check
+
+TItemDetail                 GROUP,TYPE
+Artist         			STRING(60)
+Binding        			STRING(20)
+NumberOfDiscs  			STRING(3)
+ReleaseDate    			STRING(10)
+Title          			STRING(60)
+UPC            			STRING(20)
+LargeImage     			STRING(200)
+                            END
+
+
+!Despatch Order Shorting
+
+TShortingQu                 QUEUE,TYPE
+PickListId			LONG
+wOrderLineId			LONG
+ProductId    			LONG
+CatNo				STRING(21)
+CatNo_NormalFG          	LONG !Normal forground color
+CatNo_NormalBG          	LONG !Normal background color
+CatNo_SelectedFG        	LONG !Selected forground color
+CatNo_SelectedBG        	LONG !Selected background color
+Artist				STRING(60)
+Artist_NormalFG          	LONG !Normal forground color
+Artist_NormalBG          	LONG !Normal background color
+Artist_SelectedFG        	LONG !Selected forground color
+Artist_SelectedBG        	LONG !Selected background color
+Title				STRING(60)
+Title_NormalFG          	LONG !Normal forground color
+Title_NormalBG          	LONG !Normal background color
+Title_SelectedFG        	LONG !Selected forground color
+Title_SelectedBG        	LONG !Selected background color
+BinCode       			STRING(20)
+BinCode_NormalFG          	LONG !Normal forground color
+BinCode_NormalBG          	LONG !Normal background color
+BinCode_SelectedFG        	LONG !Selected forground color
+BinCode_SelectedBG        	LONG !Selected background color
+QtyAllowcated  			LONG
+QtyAllowcated_NormalFG          LONG !Normal forground color
+QtyAllowcated_NormalBG          LONG !Normal background color
+QtyAllowcated_SelectedFG        LONG !Selected forground color
+QtyAllowcated_SelectedBG        LONG !Selected background color
+QtyPicked_Hold 			LONG
+QtyPicked    			LONG
+QtyPicked_NormalFG          	LONG !Normal forground color
+QtyPicked_NormalBG          	LONG !Normal background color
+QtyPicked_SelectedFG        	LONG !Selected forground color
+QtyPicked_SelectedBG        	LONG !Selected background color
+QtyTotal    			LONG
+QtyTotal_NormalFG          	LONG !Normal forground color
+QtyTotal_NormalBG          	LONG !Normal background color
+QtyTotal_SelectedFG        	LONG !Selected forground color
+QtyTotal_SelectedBG        	LONG !Selected background color
+QtyReqTotal    			LONG
+QtyReqTotal_NormalFG          	LONG !Normal forground color
+QtyReqTotal_NormalBG          	LONG !Normal background color
+QtyReqTotal_SelectedFG        	LONG !Selected forground color
+QtyReqTotal_SelectedBG        	LONG !Selected background color
+Allowcate			BYTE
+Allowcate_NormalFG          	LONG !Normal forground color
+Allowcate_NormalBG          	LONG !Normal background color
+Allowcate_SelectedFG        	LONG !Selected forground color
+Allowcate_SelectedBG        	LONG !Selected background color
+Allowcate_Icon			LONG
+Status    			LONG
+                            END
+
+!stockItem
+
+TstockItem            	GROUP,TYPE
+Qty                     	LONG				
+Price1                   	DECIMAL(7,2)			
+Price2			      	DECIMAL(7,2)
+Price3		      		DECIMAL(7,2)
+LeadTime1                  	STRING(15)
+LeadTime2                     	STRING(15)
+CampaignID		      	LONG
+EAN				STRING(13)
+                            END
+
+TEmailGroup          	GROUP,TYPE
+Server                 		STRING(252)
+ToAddress              		STRING(8192)
+From                   		STRING(252)
+CCList                 		STRING(8192)
+BccList                		STRING(8192)
+Subject                		STRING(252)
+Text                   		STRING(30000)
+Html                   		STRING(30000)
+HeloServer             		STRING(252)
+UserName               		STRING(252)
+Password               		STRING(252)
+AttachmentPath         		STRING(8192)
+UseTLS				BYTE
+AttachmentsMissingThenFail	BYTE
+                     	END
+
+TSystemEmailGroup	GROUP,TYPE
+ToAddress              		STRING(8192)
+CCList                 		STRING(8192)
+BccList                		STRING(8192)
+Subject                		STRING(252)
+Text                   		STRING(30000)
+Html                   		STRING(30000)
+Attachments         		STRING(8192)
+SenderProfile			BYTE(0)
+                     	END
+
+!Notification Columns options
+NTF_COL_ORDER_NUMBER		EQUATE(00001H)	!0000000001b
+NTF_COL_THEIR_REF		EQUATE(00002H)	!0000000010b
+NTF_COL_CAT_NUM			EQUATE(00004H)	!0000000100b
+NTF_COL_ARTIST			EQUATE(00008H)	!0000001000b
+NTF_COL_TITLE			EQUATE(00010H)	!0000010000b
+NTF_COL_BARCODE			EQUATE(00020H)	!0000100000b
+NTF_COL_QTY_ORDERED		EQUATE(00040H)	!0001000000b
+NTF_COL_QTY_PICKED		EQUATE(00080H)	!0010000000b
+NTF_COL_LINE_REF		EQUATE(00100H)	!0100000000b
+NTF_COL_SELL_PRICE		EQUATE(00200H)	!1000000000b
+
+TNotificationColumnQu	QUEUE,TYPE
+ColumnName           		STRING(50)                            
+ColumnName_Icon      		LONG                                  
+Value                		ULONG                                  
+                     	END 
+
+TRejectedImportQu	QUEUE, TYPE
+CatNumber			STRING(40)
+Qty				LONG
+FoundCatNumber			STRING(40)
+FoundBarcode			STRING(40)
+Info				STRING(255)
+Reason				STRING(255)
+			END
+
+ORDERING_SENT_FROM_NONE			EQUATE(0)
+ORDERING_SENT_FROM_SALE_MANUAL		EQUATE(1)
+ORDERING_SENT_FROM_SALE_AUTO		EQUATE(2)
+ORDERING_SENT_FROM_RETURN_MANUAL	EQUATE(3)
+ORDERING_SENT_FROM_RETURN_AUTO		EQUATE(4)
+
+ORDERING_IGNORE_DELETION		EQUATE(TRUE)
+ORDERING_DO_NOT_IGNORE_DELETION		EQUATE(FALSE)
+
+ORDERING_SHOW_MESSAGES			EQUATE(TRUE)
+ORDERING_DO_NOT_SHOW_MESSAGES		EQUATE(FALSE)
+
+ORDER_RULE_NOT_BLOCKED			EQUATE(0)
+ORDER_RULE_BLOCKED			EQUATE(1)
+ORDER_RULE_BLOCKED_BY_RELEASE_DATE	EQUATE(2)
+
+!----Scheduled Event Day Equates ----
+SCH_EVENT_NONE	   		EQUATE(00000h)  !000000000000b 0
+SCH_EVENT_MON       		EQUATE(00001h)	!000000000001b 1
+SCH_EVENT_TUE       		EQUATE(00002h)	!000000000010b 2
+SCH_EVENT_WED       		EQUATE(00004h)	!000000000100b 4
+SCH_EVENT_THU       		EQUATE(00008h)	!000000001000b 8
+SCH_EVENT_FRI       		EQUATE(00010h)	!000000010000b 16
+SCH_EVENT_SAT       		EQUATE(00020h)	!000000100000b 32
+SCH_EVENT_SUN       		EQUATE(00040h)	!000001000000b 64
+SCH_EVENT_WEEKDAYS  		EQUATE(00080h)	!000010000000b 128
+SCH_EVENT_WEEKENDS  		EQUATE(00100h)	!000100000000b 256
+SCH_EVENT_EVERYDAY  		EQUATE(00200h)	!001000000000b 512
+SCH_EVENT_DAYOFMONTH  		EQUATE(00400h)	!010000000000b 1024
+SCH_EVENT_LASTDAYOFMONTH	EQUATE(00800h)	!100000000000b 2048
+
+!Contract Attribute Value Types
+CONTRACT_ATTRIB_TYPE_NUMBER	EQUATE(0)
+CONTRACT_ATTRIB_TYPE_DATE	EQUATE(1)
+CONTRACT_ATTRIB_TYPE_COST	EQUATE(2)
+CONTRACT_ATTRIB_TYPE_PERCENT	EQUATE(3)
+CONTRACT_ATTRIB_TYPE_TEXT	EQUATE(4)
+CONTRACT_ATTRIB_TYPE_TEXTLIST	EQUATE(5)
+CONTRACT_ATTRIB_TYPE_YESNO	EQUATE(6)
+CONTRACT_ATTRIB_TYPE_TERRITORY	EQUATE(7)
+!Values
+!0|1|2|3|4|5|6|7
+!Choices
+! Number| Date| Cost per Unit| % of Value per Unit| Text| Text From List| Yes/No| Territory
+
+!Supplier Groups control Qu
+TSupplierGroupsQu    QUEUE,TYPE                        !
+LimitTo              	BYTE                                  !
+LimitTo_Icon         	LONG                                  !
+Exclude              	BYTE                                  !
+Exclude_Icon         	LONG                                  !
+GroupName            	STRING(50)                            !
+SortOrder            	ULONG                                 !
+SupplierGroupId      	ULONG                                 !
+                     END 
+
+TChargebackOrderLines	QUEUE,TYPE
+AccountCode			STRING(30)
+AccountName			STRING(50)
+OrderNumber			STRING(30)
+OrderDate			STRING(10)
+Supplier			STRING(10)
+CatNumber			STRING(30)
+KeyedByUser			STRING(60)
+QtyOrdered			LONG
+QtyPicked			LONG
+ProductID			LONG
+OrderType			LONG
+OrderTypeName			STRING(30)
+AccountAddress			STRING(50)
+CustomerPO			STRING(30)
+			END
+
+TContractAttribGroup	GROUP,TYPE
+AccountCode		 	STRING(10)
+ContractId		  	ULONG
+AttribTypeId			ULONG
+Value1Name			STRING(50)
+Value1				STRING(200)
+Value1Type			BYTE
+Value2Used			BYTE
+Value2Name			STRING(50)
+Value2				STRING(200)
+Value2TYpe			BYTE
+AnalysisCode			CSTRING(21)
+CustomerCode			CSTRING(11)
+ShopNumber			USHORT
+OrderIdentifier			STRING(50)
+AttributeId			ULONG
+			END
+
+TContractAttribQu	QUEUE(TContractAttribGroup), TYPE
+			END
+
+
+!--Consignment Transaction Custom error Codes
+CNS_TRANS_ERROR_NOT_WITH_CUST		EQUATE(1)
+CNS_TRANS_ERROR_INSUFFICIENT_STOCK	EQUATE(2)
+CNS_TRANS_ERROR_UNKNOWN_TRANS_TYPE	EQUATE(3)
+CNS_TRANS_ERROR_TRANSACTION_NOT_UPDATED	EQUATE(4)
+!-- Order Types
+CNS_TRANS_ORDERTYPE_WAPRETURN		EQUATE('Wap Returns')
+CNS_TRANS_ORDERTYPE_STOCK_ORDER		EQUATE('Stock Order (4)')
+CNS_TRANS_ORDERTYPE_INVOICE		EQUATE('Invoice (5)')
+CNS_TRANS_ORDERTYPE_STOCK_RETURN	EQUATE('Stock Return (6)')
+CNS_TRANS_ORDERTYPE_CREDIT_RETURN	EQUATE('Credit Return (7)')
+CNS_TRANS_ORDERTYPE_MANUAL_ADJUST	EQUATE('Manual Adjust')
+CNS_TRANS_ORDERTYPE_TRANSFER		EQUATE('Stock Transfer')
+
+
+!Label and Supplier Warehouse Message Types
+WAREHOUSE_MESSAGE_TYPE_RETURNS		EQUATE(1)
+WAREHOUSE_MESSAGE_TYPE_GOODSIN		EQUATE(2)
+
+TGenericInfoQu		QUEUE, TYPE
+PropertyName			STRING(100)
+PropertyName_FG			LONG
+PropertyName_BG			LONG
+PropertyName_SFG		LONG
+PropertyName_SBG		LONG
+ValueString			STRING(1000)
+ValueString_FG			LONG
+ValueString_BG			LONG
+ValueString_SFG			LONG
+ValueString_SBG			LONG
+LinkId				ULONG
+ParentId			ULONG
+ParentTypeId			ULONG
+PropertyId			ULONG
+ValueId				ULONG
+RecordType			LONG
+FullValueString			STRING(1000)
+TranslatedString		STRING(1000)
+ContainsBlobData		BYTE
+BlobId				ULONG
+BlobData			&STRING
+KVPair				BYTE
+KVKey				STRING(500)
+KVValue				STRING(500)
+
+			END
+
+
+
+TGenericInfoGroup	GROUP, TYPE
+ParentId			ULONG
+ParentTypeId			ULONG
+ListControl			LONG
+InsertControl			LONG
+ChangeControl			LONG
+DeleteControl			LONG
+GenericInfoQu			&TGenericInfoQu
+OtherInfoQu			&TGenericInfoQu
+SetupComplete			BYTE(0)
+			END
+
+TGenericInfoSmallGroup	GROUP, TYPE
+ParentId			ULONG
+ParentTypeId			ULONG
+			END
+			
+TManageGenericInfoQu	QUEUE, TYPE
+MatchingColumn			STRING(255)
+ParentId			ULONG
+ParentTypeId			ULONG
+			END
+
+TGenericInfoValueQu	QUEUE, TYPE
+ValueString			STRING(1000)
+LinkId				ULONG
+PropertyId			ULONG
+ParentId			ULONG
+ParentTypeId			ULONG
+BlobId				ULONG
+ValueId				ULONG
+ContainsBlobData		BYTE
+PropertyName			STRING(100)
+BlobData			&STRING
+KVPair				BYTE
+KVKey				STRING(500)
+KVValue				STRING(500)
+			END
+
+TOperandQu		QUEUE, TYPE
+OperandName			STRING(100)
+OperantName_FG			LONG
+OperantName_BG			LONG
+OperantName_SFG			LONG
+OperantName_SBG			LONG
+Description			STRING(500)
+Description_FG			LONG
+Description_BG			LONG
+Description_SFG			LONG
+Description_SBG			LONG
+OperandGroup			STRING(100)
+OperandGroup_FG			LONG
+OperandGroup_BG			LONG
+OperandGroup_SFG		LONG
+OperandGroup_SBG		LONG
+EvalName			STRING(255)
+SqlName				STRING(255)
+PropertyId			ULONG
+DataType			LONG
+ZoneLocation			BYTE(0)
+HideFromProductMetric		BYTE(0)
+			END
+
+OperandQuDataTypes	ITEMIZE(1), PRE(DType)
+Date				EQUATE
+String				EQUATE
+Number				EQUATE
+Expression			EQUATE
+			END
+
+TWorkQu			QUEUE, TYPE
+ProductId			LONG
+SrcZone				STRING(10)
+DstZone				STRING(10)
+Qty				LONG
+			END
+
+TLocationSelectionQu    QUEUE, TYPE
+LocationCode         		CSTRING(2)                            !
+LocationCode_Icon    		LONG                                  !
+LocationName         		CSTRING(41)                           !
+Zone                 		STRING(10)                            !
+                     	END 
+
+TBasicFileQu		QUEUE, TYPE
+FullPath			STRING(260)
+			END
+
+TReportProductQu	QUEUE, TYPE!For reports and such
+SupplierCat			STRING(50), NAME('Catalogue Number')
+Artist				STRING(50), NAME('Artist')
+Title				STRING(50), NAME('Title')
+EAN				STRING(13), NAME('EAN')
+ProductId			LONG, NAME('Product Id')
+SpareNumber1			LONG, NAME('Spare Number 1')
+SpareNumber2			LONG, NAME('Spare Number 2')
+SpareNumber3			LONG, NAME('Spare Number 3')
+SpareDecimal1			DECIMAL(10,2), NAME('Spare Decimal 1')
+SpareDecimal2			DECIMAL(10,2), NAME('Spare Decimal 2')
+SpareDecimal3			DECIMAL(10,2), NAME('Spare Decimal 3')
+SpareByte1			BYTE, NAME('Spare Byte 1')
+SpareByte2			BYTE, NAME('Spare Byte 2')
+SpareByte3			BYTE, NAME('Spare Byte 3')
+SpareDate1			DATE, NAME('Spare Date 1')
+SpareDate2			DATE, NAME('Spare Date 2')
+SpareDate3			DATE, NAME('Spare Date 3')
+SpareText1			STRING(255), NAME('Spare Text 1')
+SpareText2			STRING(255), NAME('Spare Text 2')
+SpareText3			STRING(255), NAME('Spare Text 3')
+			END
+
+TExternalProductsQu	QUEUE, TYPE!Used to import data into basil from external suppliers
+ProperSupplierCat		STRING(21)
+ProperNwmCat			STRING(21)
+TheirCatNumber			STRING(15)
+Artist				STRING(30)
+Title				STRING(30)
+Barcode				STRING(13)
+Format				STRING(20)
+Price				DECIMAL(7,2)
+StockAmt			LONG
+DeliveryTime			SHORT
+AddInfo				STRING(20)
+PrimaryGenre			STRING(5)
+SecondaryGenre			STRING(5)
+FillRate			BYTE
+ReleaseDate			DATE
+DeletionDate			DATE
+Region				STRING(20)
+SuppCode			STRING(5)
+DatabaseCode			STRING(3)
+Result				STRING(255)
+ErrCode				LONG
+			END
+
+TSFtpUploadGroup	GROUP, TYPE
+HostName				CSTRING(255)
+UserName				CSTRING(255)
+Password				CSTRING(255)
+Port					LONG
+RemoteDirectory			CSTRING(255)
+LocalFileName			CSTRING(255)
+RemoteFileName			CSTRING(255)
+Active					BYTE(0)
+					END
+
+!Same as a above, but just in case
+TSFtpDownloadGroup	GROUP, TYPE
+HostName			CSTRING(255)
+UserName			CSTRING(255)
+Password			CSTRING(255)
+Port				LONG
+RemoteDirectory			CSTRING(255)
+LocalFileName			CSTRING(255)
+RemoteFileName			CSTRING(255)
+Active				BYTE(0)
+			END
+
+
+TMassProductUpdateGroup	GROUP,TYPE
+SupplierCat               CSTRING(22)                           !Supplier Catalogue Number
+Format                    CSTRING(6)                            !Format
+Artist                    CSTRING(31)                           !Artist
+Title                     CSTRING(31)                           !Title
+Barcode                   STRING(30)                            !Barcode
+DateReleased              STRING(10)                            !Date Released
+Price1                    DECIMAL(7,2)                          !
+Price2                    DECIMAL(7,2)                          !
+Price3                    DECIMAL(7,2)                          !
+Price4                    DECIMAL(7,2)                          !
+Price5                    DECIMAL(7,2)                          !
+LocalPrice                DECIMAL(7,2)                          !
+AnalysisCode              CSTRING(21)                            !
+Weight                    DECIMAL(7,2)                          !
+Nominal_1                 CSTRING(9)                            !
+Nominal_2                 CSTRING(9)                            !
+Nominal_3                 CSTRING(9)                            !
+Supplier                  CSTRING(9)                            !Sage Supplier Code
+Commodity                 CSTRING(16)                           !Commodity_code
+DeletionType              BYTE                                  !
+MCPSPercentage            DECIMAL(9,5)
+                        END
+
+TIodaReportQu      QUEUE,TYPE
+Service_Name         STRING(40)                            !
+Region               STRING(30)                            !
+Country              STRING(40)                            !
+Year                 STRING(20)                            !
+Period               STRING(20)                            !
+Statement_Month      STRING(20)                            !
+SubAccount	     STRING(100)
+Label                STRING(100)                            !
+Track_Artist         STRING(80)                            !
+Release_Artist       STRING(80)                            !
+Video_Artist         STRING(80)                            !
+Catalogue_ID         STRING(30)                            !
+Release_Name         STRING(80)                            !
+UPC                  STRING(20)                            !
+Track_Name           STRING(150)                           !
+ISRC                 STRING(12)                            !
+VideoName            STRING(40)                            !
+VideoType            STRING(40)                            !
+TV                   STRING(20)                            !
+Sale_Format          STRING(30)                            !
+Download_Mechanicals_Withheld STRING(30)                   !
+Delivery_Type        STRING(40)                            !
+Unit_Count           STRING(20)                            !
+Unit_Price_USD       STRING(20)                            !
+Total_Sales_USD      STRING(20)                            !
+RingtonePublishing   STRING(20)                            !
+Publishing           STRING(20)                            !
+MechanicalsAdminFee  STRING(20)                            !
+IRSWithheld_USD      STRING(20)                            !
+Net_Earnings_USD     STRING(20)                            !
+Total_Sales_Gross_USD STRING(32)                           !
+LineId		       ULONG	!The user will not be able to change this field or any after it
+Total_Sales_USD_Hold STRING(20)
+Net_Earnings_USD_Hold STRING(20)
+                     END
+TIodaReportUpdateQu QUEUE(TIodaReportQu),TYPE
+UpdateType		STRING(255)
+		    END
+
+Ioda:UpdateType:Update 	EQUATE('UPDATE')
+Ioda:UpdateType:Delete 	EQUATE('DELETE')
+Ioda:UpdateType:None	EQUATE('NONE')
+
+AMAZON_MAX_POS_PER_BOX	EQUATE(90) !I SWEAR TO GOD, YOU'D BETTER NOT CHANGE THIS.
+
+!World Map
+TWorldMapQu	QUEUE, TYPE
+CountryName		STRING(255)
+Colour			LONG
+		END
+
+TULONGQueue	QUEUE, TYPE !List of ULONGs
+Val			ULONG
+		END
+
+TArtworkPathQu	QUEUE, TYPE
+ProductId		LONG
+ArtworkPath		STRING(260)
+ArtworkType		STRING(50)
+ArtworkURL		STRING(1000)
+		END
+                      
+
+
+PMC:BEHAVE_STRING_LENGTH	EQUATE(10)
+PMC:BEHAVE_STRING		STRING(PMC:BEHAVE_STRING_LENGTH)
+PMC:BEHAVE:NONE			EQUATE('NONE')
+PMC:BEHAVE:DIRECT		EQUATE('DIRECT')
+PMC:BEHAVE:FILL			EQUATE('FULFILMENT')
+PMC:BEHAVE:NORMAL		EQUATE('NORMAL')
+PMC:BEHAVE:WHITELABEL		EQUATE('WHITELABEL')
+
+PMC:ORDER:OK			EQUATE(0)
+PMC:ORDER:BACKORDER		EQUATE(1)
+PMC:ORDER:MISSING		EQUATE(2)
+PMC:ORDER:ERROR			EQUATE(3)
+
+
+CONST:MILLION			EQUATE(1000000)
+CONST:BILLION			EQUATE(1000000000)
+CONST:10K			EQUATE(10000)
+CONST:50K			EQUATE(50000)
+CONST:100K			EQUATE(100000)
+CONST:ULONG:MIN			EQUATE(0)
+CONST:ULONG:MAX			EQUATE(4294967295)
+CONST:LONG:MIN			EQUATE(-2147483648)
+CONST:LONG:MAX			EQUATE(2147483647)
+CONST:PIXELTODIALOG_WIDTH	EQUATE(0.666992)
+CONST:PIXELTODIALOG_HEIGHT	EQUATE(0.614583)
+
+TBoxLabelDetailGroup		GROUP, TYPE
+Suppliercat				STRING(50)
+Artist					STRING(50)
+Title					STRING(50)
+EAN					STRING(13)
+Qty					LONG
+PONumber				STRING(30)
+				END
+
+
+TKeyValuePairQu	QUEUE, TYPE
+KeyString		STRING(1000)
+ValueString		STRING(1000)
+		END
+
+
+AMZ:PROC:STEP:NONE				EQUATE('NONE')
+AMZ:PROC:STEP:FEED:PREPARING			EQUATE('FEED:PREPARING')
+AMZ:PROC:STEP:FEED:LINES			EQUATE('FEED:PROCESSINGLINES')
+AMZ:PROC:STEP:FEED:FINISHING			EQUATE('FEED:FINISHING')
+
+AMZ:PROC:STEP:ORDERS:PROCESSING			EQUATE('ORDERS:PROCESSING')
+
+
+
+
+PICKBOX:BOXTYPE:NONE				EQUATE(0)	!invalid
+PICKBOX:BOXTYPE:BOX				EQUATE(1)
+PICKBOX:BOXTYPE:COMBINED_BOX			EQUATE(2)
+PICKBOX:BOXTYPE:PALLET				EQUATE(3)	
+PICKBOX:BOXTYPE:SHIPMENT			EQUATE(4)
+
+PICKBOX:STATUS:NONE				EQUATE(0)
+PICKBOX:STATUS:OPEN 				EQUATE(100)
+PICKBOX:STATUS:PICKING 				EQUATE(200)
+PICKBOX:STATUS:PAUSED  				EQUATE(300)
+PICKBOX:STATUS:FINISHED  			EQUATE(400)
+PICKBOX:STATUS:CLOSED  				EQUATE(500)
+PICKBOX:STATUS:HOLDING  			EQUATE(600)
+PICKBOX:STATUS:TO_SHIP  			EQUATE(700)
+PICKBOX:STATUS:SHIPPED  			EQUATE(800)
+PICKBOX:STATUS:DELETED  			EQUATE(1000)
+
+
+
+
+
+
+
