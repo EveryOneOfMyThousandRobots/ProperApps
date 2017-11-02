@@ -229,12 +229,14 @@ StockLocation        CSTRING(21)                           !Stock Location
 StockLocation_Icon   LONG
 AccountName          CSTRING(31)                           !Name
 Status		     STRING(50)
+Options		     STRING(20)				   !E = Export, P = Priority
 PickListDate         STRING(10)                            !
 PickListTime         STRING(8)                             !
 OrderReference       CSTRING(21)                           !OrderReference
 SupplierCat          CSTRING(22)                           !Supplier Catalogue Number
 Artist               CSTRING(31)                           !Artist
 Title                CSTRING(31)                           !Title
+Format		     CSTRING(6)
 QtySupplied          USHORT                                !Quantity Supplied
 QtyPicked            USHORT                                !
 QtyOffsite           LONG                                  !
@@ -243,7 +245,6 @@ PickingListNote      CSTRING(501)                          !
 AllBinCodes          CSTRING(1025)                         !String of bin codes and qties in the followinf format: 1BDH2=26;2DEG5=23
 TheirReference       CSTRING(31)                           !Their Reference - Exported into Sage
 EAN                  STRING(13)                            !Barcode stored as a 13 digit EAN Barcode
-Options		     STRING(20)				   !E = Export, P = Priority
 Supplier             CSTRING(9)                            !Sage Supplier Code
 AccountCode	     CSTRING(11)			   !Proper Order Headers. Account Code
 RecordType	     STRING(1)
