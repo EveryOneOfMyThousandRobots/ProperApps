@@ -242,6 +242,7 @@ QtyPicked            USHORT                                !
 QtyOffsite           LONG                                  !
 BinCodes             CSTRING(1025)                         !String of bin codes and qties in the followinf format: 1BDH2=26;2DEG5=23
 PickingListNote      CSTRING(501)                          !
+BinGroup	     CSTRING(256)
 AllBinCodes          CSTRING(1025)                         !String of bin codes and qties in the followinf format: 1BDH2=26;2DEG5=23
 TheirReference       CSTRING(31)                           !Their Reference - Exported into Sage
 EAN                  STRING(13)                            !Barcode stored as a 13 digit EAN Barcode

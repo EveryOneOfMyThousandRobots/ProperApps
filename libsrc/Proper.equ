@@ -641,6 +641,59 @@ ARCHIVE:KEEPORIGINAL				EQUATE(1)
 ARCHIVE:ALWAYSTIMESTAMP				EQUATE(2)
 
 
+TSupplierStockReportQu				QUEUE, TYPE
+SupplierCat          CSTRING(22)                           !Supplier Catalogue Number
+Artist               CSTRING(31)                           !Artist
+Title                CSTRING(31)                           !Title
+DateReleased         LONG                                  !Date Released
+EdiBackOrder         STRING(14)                            !
+BasilBackOrder       STRING(14)                            !
+TotalBackOrder       STRING(14)                            !
+Quotes               STRING(14)                            !
+Supplier             CSTRING(9)                            !Sage Supplier Code
+AnalysisCode         CSTRING(21)                           !
+DeletionType         STRING(3)                             !
+OnHand               LONG                                  !
+Allocated            LONG                                  !
+FaultyDeleted        LONG                                  !
+Consignment          LONG                                  !
+Format               CSTRING(6)                            !Format
+Price5               DECIMAL(7,2)                          !
+DealerPrice          DECIMAL(7,2)                          !Dealer Price
+Price4               DECIMAL(7,2)                          !
+AverageBuyPrice      STRING(20)                          !
+OnOrder              LONG                                  !
+SalesThisWeek        LONG                                  !
+SalesLastWeek        LONG                                  !
+SalesThisMonth       LONG                                  !
+SalesLastMonth       LONG                                  !
+Sales2MonthsAgo      LONG                                  !
+Sales3MonthsAgo      LONG                                  !
+SalesThisYear        LONG                                  !
+SalesLastYear        LONG                                  !
+SalesToDate          LONG                                  !
+Returns              STRING(14)                            !
+Promos               STRING(14)                            !
+ConsInvoicesThisMonth LONG                                 !
+ConsInvoicesLastMonth LONG                                 !
+Barcode              STRING(30)                            !Barcode
+LastPurchasedMonth   STRING(30)                            !
+LastPurchasedQty     LONG                                  !
+Nominal_1            CSTRING(9)                            !
+ManufacturedInternally STRING(3)                           !
+Amz_Price            STRING(10)                            !Latest Onsite Price
+AmzFr_Price          STRING(10)                            !Latest Onsite Price
+AmzDe_Price          STRING(10)                            !Latest Onsite Price
+AmzJp_Price          STRING(10)                            !Latest Onsite Price
+LongDescription      STRING(20)                            !
+SubLabelName         STRING(100)                           !
+EAN                  STRING(14)                            !Barcode stored as a 13 digit EAN Barcode
+FirstGoodsInDate     STRING(20)                            !
+ArtworkFound         STRING(3)                             !
+ProductId            LONG                                  !Unique Product Id
+                     END 
+
+
 
 
 
