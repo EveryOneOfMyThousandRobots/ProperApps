@@ -274,3 +274,13 @@ TPrintBinCodesQu	QUEUE, TYPE
 BinCode				STRING(5)
 			END	
 
+TBinChecker::ConfirmItemGroup	GROUP, TYPE
+CatNum               			STRING(22)                            !
+Artist               			STRING(50)                            !
+Title                			STRING(50)                            !
+Qty                  			LONG                                  !
+QtyChecked            			LONG
+ProductID            			ULONG                                 !
+Format               			CSTRING(6) 
+				END
+

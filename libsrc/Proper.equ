@@ -593,6 +593,12 @@ CONST:LONG:MIN			EQUATE(-2147483648)
 CONST:LONG:MAX			EQUATE(2147483647)
 CONST:PIXELTODIALOG_WIDTH	EQUATE(0.666992)
 CONST:PIXELTODIALOG_HEIGHT	EQUATE(0.614583)
+CONST:PI			EQUATE(3.14159265)
+CONST:TWO_PI			EQUATE(6.28318531)
+CONST:TAU			EQUATE(CONST:TWO_PI)
+CONST:e				EQUATE(2.71828183)
+CONST:SQRT:TWO_PI		EQUATE(2.50662827)
+CONST:1OVER:SQRT:TWO_PI		EQUATE(0.39894228)
 
 TBoxLabelDetailGroup		GROUP, TYPE
 Suppliercat				STRING(50)
@@ -686,7 +692,7 @@ Amz_Price            STRING(10)                            !Latest Onsite Price
 AmzFr_Price          STRING(10)                            !Latest Onsite Price
 AmzDe_Price          STRING(10)                            !Latest Onsite Price
 AmzJp_Price          STRING(10)                            !Latest Onsite Price
-LongDescription      STRING(20)                            !
+LongDescription      STRING(60)                            !
 SubLabelName         STRING(100)                           !
 EAN                  STRING(14)                            !Barcode stored as a 13 digit EAN Barcode
 FirstGoodsInDate     STRING(20)                            !
@@ -701,6 +707,16 @@ COMOTT::SelectionType::PRINTER		EQUATE(1)
 COMOTT::SelectionType::YESNO		EQUATE(2)
 
 
+EDI::RESP:FILE:NONE				EQUATE(0)
+EDI::RESP:FILE:HOLD				EQUATE(000000001b)
+EDI::RESP:FILE:READY				EQUATE(000000010b)
+EDI::RESP:FILE:PROCESSING			EQUATE(000000100b)
+EDI::RESP:FILE:COMPLETE				EQUATE(000001000b)
 
+EDI::RESP:FILE:TYPE:CANCEL			EQUATE(1)
+
+EDI::RESP:LINE:NONE				EQUATE(0)
+EDI::RESP:LINE:READY				EQUATE(000000001b)
+EDI::RESP:LINE:PROCESSED			EQUATE(000000010b)
 
 
