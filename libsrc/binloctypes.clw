@@ -76,6 +76,28 @@ SpareText5                    CString(61)
 DocTime                       Time
                            End
 
+TBinHistoryQu			QUEUE, TYPE
+DocType					CSTRING(21)
+DocType_Icon				LONG
+DocDate					DATE
+DocTime					TIME
+SupplierCat				CSTRING(21)
+Artist					CSTRING(41)
+Title					CSTRING(41)
+Description_1				CSTRING(255)
+Description_2				CSTRING(255)
+SrcBinCode				CSTRING(6)
+DstBinCode				CSTRING(6)
+SignedQty				LONG
+UnsignedQty				LONG
+SpareText1                    		CSTRING(61)
+SpareText2                    		CSTRING(61)
+SpareText3                    		CSTRING(61)
+SpareText4                    		CSTRING(61)
+SpareText5                    		CSTRING(61)
+ProductId				LONG
+				END
+
 TBinQueue  Queue,Type
 BinCode       CString(6)
 MinQty        Long
@@ -284,3 +306,11 @@ ProductID            			ULONG                                 !
 Format               			CSTRING(6) 
 				END
 
+
+TArrowChoiceGroup     GROUP,TYPE 
+Arrow1               BYTE                                  !
+Arrow2               BYTE                                  !
+Arrow3               BYTE                                  !
+Arrow4               BYTE                                  !
+Arrow5               BYTE(1)                               !
+                     END 

@@ -14,6 +14,7 @@ FOLDER:DIGITALREPORTS		EQUATE('DigitalReportsFolder')
 FOLDER:BINCHECKER		EQUATE('BinCheckerFolder')
 FOLDER:CSVS			EQUATE('CSVsFolder')
 FOLDER:DAYEND			EQUATE('DayEnd')
+FOLDER:USERLOGS			EQUATE('Logs')
 
 !Discounting
 
@@ -718,5 +719,29 @@ EDI::RESP:FILE:TYPE:CANCEL			EQUATE(1)
 EDI::RESP:LINE:NONE				EQUATE(0)
 EDI::RESP:LINE:READY				EQUATE(000000001b)
 EDI::RESP:LINE:PROCESSED			EQUATE(000000010b)
+EDI::RESP:LINE:ERROR				EQUATE(000100000b)
+EDI::RESP:LINE:ERROR_ORDRESPLINE_NOT_FOUND	EQUATE(001000000b)
 
 
+TPI_BinHistoryQu	QUEUE,TYPE
+BinCode				STRING(5)
+HistoryDate			DATE
+HistoryTime			TIME
+UserId				ULONG
+Result				LONG
+ProductId			LONG
+QtyBefore			LONG
+QtyAfter			LONG
+BinTotalVariation		LONG
+			END
+
+
+PI_BinHistory:Status:Success	EQUATE(1)
+PI_BinHistory:Status:Aborted	EQUATE(2)
+PI_BinHistory:Status:Skipped	EQUATE(3)
+PI_BinHistory:Status:Failed	EQUATE(4)
+PI_BinHistory:Status:Error	EQUATE(255)
+
+PI_BinHistory:TransmissionStatus:NotRequired 	EQUATE(0)
+PI_BinHistory:TransmissionStatus:Waiting 	EQUATE(1)
+PI_BinHistory:TransmissionStatus:Complete 	EQUATE(2)
