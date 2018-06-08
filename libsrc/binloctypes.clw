@@ -98,17 +98,18 @@ SpareText5                    		CSTRING(61)
 ProductId				LONG
 				END
 
-TBinQueue  Queue,Type
-BinCode       CString(6)
-MinQty        Long
-MaxQty        Long
-Qty           Long
-Type          CString(11)
-TempQty1      Long
-FromMulti     Byte
-SortBincode   CString(11)
-TempQty2      Long
-           End
+TBinQueue  	Queue,Type
+BinCode       		CString(6)
+MinQty        		Long
+MaxQty        		Long
+Qty           		Long
+Type          		CString(11)
+TempQty1      		Long
+FromMulti     		Byte
+SortBincode   		CString(11)
+TempQty2      		Long
+ReturnsSortOrder	LONG
+           	End
 
 TEditShelfGroup Group,Type
 Spaced             Byte,Dim(12)
@@ -180,6 +181,29 @@ PT:SpareField1		   STRING(1024)
 PT:SpareField2		   STRING(1024)
 PT:SpareField3		   STRING(1024)
 			END
+
+
+TPrintingPicklistQu		QUEUE, TYPE
+wOrderLineId				ULONG
+BinCodes				STRING(1024)
+QtyToPick				LONG
+QtyPicked				LONG
+ProgressQtyPicked			LONG
+BinCode                 		CSTRING(6)
+SortBinCode             		CSTRING(11)
+ProductID               		LONG
+wOrderID                		ULONG
+Artist                  		STRING(50)
+Title					STRING(50)
+Barcode					STRING(13)
+SupplierCat				STRING(50)
+PickZoneSort            		CSTRING(255)
+Zone:PickingZoneId      		ULONG
+Zone:Name               		STRING(255)
+Zone:SortOrder          		LONG
+Zone:PrintingGroup      		STRING(20)
+Format:WarehouseFormatGroup 		STRING(20)
+				END
 
 
 
@@ -294,6 +318,7 @@ DespatchID         ULONG
 
 TPrintBinCodesQu	QUEUE, TYPE
 BinCode				STRING(5)
+SortOrder			DECIMAL(10,2)
 			END	
 
 TBinChecker::ConfirmItemGroup	GROUP, TYPE
